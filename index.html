@@ -5,9 +5,9 @@
 <title>Malebogo ❤️</title>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-html, body { height:100%; font-family:'Poppins', sans-serif; overflow:hidden; background: linear-gradient(135deg, #ff758c, #ff7eb3); }
+html, body { height:100%; font-family:'Poppins', sans-serif; overflow-x:hidden; background: linear-gradient(135deg, #ff758c, #ff7eb3); }
 
-/* Container for album + card */
+/* Container */
 .container {
   display:flex;
   flex-direction: column;
@@ -16,10 +16,10 @@ html, body { height:100%; font-family:'Poppins', sans-serif; overflow:hidden; ba
   width: 90%;
   max-width: 800px;
   margin: auto;
-  padding-top: 30px;
+  padding-top: 20px;
 }
 
-/* Album styles */
+/* Album */
 .album {
   width: 350px;
   height: 450px;
@@ -45,9 +45,7 @@ html, body { height:100%; font-family:'Poppins', sans-serif; overflow:hidden; ba
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-.pages img.active {
-  opacity:1;
-}
+.pages img.active { opacity:1; }
 
 /* Valentine Card */
 .card {
@@ -108,6 +106,32 @@ button {
   box-shadow: 0 5px 20px rgba(0,0,0,0.3);
   z-index:100;
 }
+
+/* ====== Responsive for mobile ====== */
+@media (max-width: 600px) {
+  .album {
+    width: 90%;
+    height: auto;
+  }
+  .pages img {
+    height: auto;
+  }
+  .card {
+    width: 95%;
+    padding: 25px;
+  }
+  h1 { font-size: 2em; }
+  h2 { font-size: 1.5em; }
+  p { font-size: 1em; }
+  button {
+    font-size: 1em;
+    padding: 12px 20px;
+  }
+  #musicBtn {
+    font-size: 1.2em;
+    padding: 15px 25px;
+  }
+}
 </style>
 </head>
 <body>
@@ -117,7 +141,7 @@ button {
 
 <div class="container">
 
-  <!-- 3D Album -->
+  <!-- Album -->
   <div class="album">
     <div class="pages">
       <img src="img1.jpeg" class="active">
@@ -129,11 +153,11 @@ button {
     </div>
   </div>
 
-  <!-- Valentine Card -->
+  <!-- Card -->
   <div class="card">
     <h1>Malebogo 💖</h1>
-    <p>Every moment with you is my favorite, I miss you so much mothowaka</p>
-    <p>I have one very important question for you mama:</p>
+    <p>Every moment with you is my favorite…</p>
+    <p>I have one very important question for you:</p>
     <h2>Will you be my Valentine? 💘</h2>
 
     <div class="buttons">
@@ -141,7 +165,6 @@ button {
         <input type="hidden" name="choice" value="Yes">
         <button type="submit" id="yes">Yes 💕</button>
       </form>
-
       <button id="no" onmouseenter="moveNo()" ontouchstart="moveNo()">No 🙈</button>
     </div>
   </div>
