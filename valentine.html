@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Malebogo ❤️</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; font-family:'Poppins', sans-serif; overflow:hidden; }
+
+/* Background gradient */
+body {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  position:relative;
+}
+
+/* Music Button */
+#musicBtn {
+  position:fixed;
+  top:20px;
+  right:20px;
+  font-size:2em;
+  background: rgba(255,255,255,0.8);
+  border:none;
+  border-radius:50%;
+  width:60px;
+  height:60px;
+  cursor:pointer;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  z-index:1000;
+}
+
+/* Container for album + card */
+.container {
+  display:flex;
+  align-items:center;
+  gap:50px;
+  max-width:950px;
+  width:90%;
+}
+
+/* Album with fade effect */
+.album {
+  width:320px;
+  height:420px;
+  flex-shrink:0;
+  border-radius:20px;
+  position:relative;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  overflow:hidden;
+}
+.pages img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  position:absolute;
+  top:0; left:0;
+  border-radius:20px;
+  opacity:0;
+  transition: opacity 1s ease;
+}
+.pages img.show { opacity:1; }
+
+/* Right side card */
+.card {
+  background: rgba(255,255,255,0.95);
+  border-radius:25px;
+  padding:35px;
+  max-width:500px;
+  width:100%;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,0.25);
+  position:relative;
+}
+
+h1 { color:#ff4d6d; font-size:2.2em; margin-bottom:15px; }
+p { font-size:1.1em; margin:10px 0; }
+h2 { margin-top:20px; color:#ff385c; }
+.buttons { position:relative; height:120px; margin-top:25px; }
+button {
+  padding:14px 28px; border-radius:35px; border:none; cursor:pointer;
+  font-size:1.1em; position:absolute; transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+button:hover { box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
+#yes { background:#ff4d6d; color:white; left:20%; }
+#no { background:#ddd; left:55%; }
+
+/* Floating hearts */
+.heart { position:absolute; font-size:24px; pointer-events:none; animation-name:float linear forwards; }
+@keyframes float { 0% { transform: translateY(0) scale(0.8); opacity:1; } 100% { transform: translateY(-120vh) scale(1.2); opacity:0; } }
+
+/* Sparkle particles */
+.particle { position:absolute; width:6px; height:6px; background:white; border-radius:50%; opacity:0.8; animation:particleMove linear infinite; }
+@keyframes particleMove { 0% { transform: translateY(0) translateX(0); opacity:1; } 100% { transform: translateY(-110vh) translateX(50px); opacity:0; } }
+
+form { display:inline; }
+</style>
+</head>
+<body>
+
+<!-- Music Button -->
+<button id="musicBtn">🎵</button>
+
+<!-- Music -->
+<audio id="music" src="music.mp3" loop></audio>
+
+<div class="container">
+
+  <!-- Fading Album -->
+  <div class="album">
+    <div class="pages">
+      <img src="img1.jpeg" class="show">
+      <img src="img2.jpeg">
+      <img src="img3.jpeg">
+      <img src="img4.jpeg">
+      <img src="img5.jpeg">
+      <img src="img6.jpeg">
+    </div>
+  </div>
+
+  <!-- Valentine Card -->
+  <div class="card">
+    <h1>Malebogo 💖</h1>
+    <p>Every moment with you is my favorite…</p>
+    <p>I have one very important question for you:</p>
+
+    <h2>Will you be my Valentine? 💘</h2>
+    <div class="buttons">
+      <form id="yesForm" action="https://formspree.io/f/mvzbprov" method="POST" onsubmit="yesClicked(); return false;">
+        <input type="hidden" name="choice" value="Yes">
+        <button type="submit" id="yes">Yes 💕</button>
+      </form>
+
+      <button id="no" onmouseenter="moveNo()" ontouchstart="moveNo()">No 🙈</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ====== Album Fade Effect ======
+const slides = document.querySelectorAll('.pages img');
+let currentSlide = 0;
+function nextSlide() {
+  slides[currentSlide].classList.remove('show');
+  currentSlide = (currentSlide + 1) % slides.length;
+  slides[currentSlide].classList.add('show');
+}
+setInterval(nextSlide, 2500);
+
+// ====== Dodging NO Button ======
+const noBtn = document.getElementById('no');
+const containerBtns = document.querySelector('.buttons');
+function moveNo() {
+  const maxX = containerBtns.clientWidth - noBtn.offsetWidth;
+  const maxY = containerBtns.clientHeight - noBtn.offsetHeight;
+  noBtn.style.left = Math.random() * maxX + 'px';
+  noBtn.style.top = Math.random() * maxY + 'px';
+  noBtn.style.transform = `rotate(${Math.random()*60-30}deg) scale(${1+Math.random()*0.4})`;
+}
+
+// ====== YES Click Animation ======
+function yesClicked() {
+  document.body.innerHTML = `<div style="text-align:center;color:white;">
+    <h1 style="font-size:3em;">Malebogo said YES!!! 💖💖💖</h1>
+    <p style="font-size:1.5em;">I can’t wait to make more memories 😍</p>
+  </div>`;
+  hearts();
+  spawnParticles();
+}
+
+// ====== Floating Hearts ======
+function hearts() {
+  setInterval(()=>{
+    const heart = document.createElement('div');
+    heart.className='heart';
+    heart.innerText='❤️';
+    heart.style.left = Math.random()*window.innerWidth+'px';
+    heart.style.fontSize=(Math.random()*30+20)+'px';
+    heart.style.animationDuration=(Math.random()*3+2)+'s';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),5000);
+  },150);
+}
+
+// ====== Sparkle Particles ======
+function spawnParticles() {
+  for(let i=0;i<50;i++){
+    const particle=document.createElement('div');
+    particle.className='particle';
+    particle.style.left = Math.random()*window.innerWidth+'px';
+    particle.style.top = window.innerHeight+'px';
+    particle.style.animationDuration=(Math.random()*5+3)+'s';
+    document.body.appendChild(particle);
+    setTimeout(()=>particle.remove(),7000);
+  }
+}
+setInterval(spawnParticles,5000);
+
+// ====== Music Button ======
+const music = document.getElementById('music');
+const musicBtn = document.getElementById('musicBtn');
+let playing = false;
+musicBtn.addEventListener('click', ()=>{
+  if(!playing){
+    music.play().catch(err=>console.log("Music play blocked:",err));
+    musicBtn.textContent = '🔊';
+    playing = true;
+  } else {
+    music.pause();
+    musicBtn.textContent = '🎵';
+    playing = false;
+  }
+});
+</script>
+
+</body>
+</html>
