@@ -1,248 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Malebogo ❤️</title>
-<style>
-* { margin:0; padding:0; box-sizing:border-box; }
-html, body { height:100%; font-family:'Poppins', sans-serif; overflow-x:hidden; background: linear-gradient(135deg, #ff758c, #ff7eb3); }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Malebo 💖</title>
 
-/* Container */
+<style>
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* MAIN CONTAINER */
 .container {
-  display:flex;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
-  width: 90%;
-  max-width: 800px;
-  margin: auto;
-  padding-top: 20px;
+  gap: 25px;
 }
 
-/* Album */
+/* ALBUM */
 .album {
-  width: 90%;
-  max-width: 350px;
-  aspect-ratio: 7/9;
-  perspective: 1500px;
+  width: 100%;
+  height: 260px;
+  position: relative;
   border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
 }
 
-.pages {
-  width:100%;
-  height:100%;
-  position:relative;
-}
-
-.pages img {
-  width:100%;
-  height:100%;
-  object-fit: cover;
-  border-radius: 20px;
+.album img {
   position: absolute;
-  top:0;
-  left:0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   opacity: 0;
-  transition: opacity 1s ease;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  animation: fade 16s infinite;
 }
 
-.pages img.active { opacity:1; }
+.album img:nth-child(1) { animation-delay: 0s; }
+.album img:nth-child(2) { animation-delay: 4s; }
+.album img:nth-child(3) { animation-delay: 8s; }
+.album img:nth-child(4) { animation-delay: 12s; }
 
-/* Valentine Card */
+@keyframes fade {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  25% { opacity: 1; }
+  35% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* CARD */
 .card {
-  background: rgba(255,255,255,0.95);
+  width: 100%;
+  background: white;
+  padding: 30px 20px;
   border-radius: 25px;
-  padding: 5%;
-  width: 95%;
-  max-width: 500px;
   text-align: center;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.25);
 }
 
-h1 { color:#ff4d6d; font-size:2.5em; margin-bottom:15px; }
-h2 { font-size:1.8em; margin:20px 0; color:#ff4d6d; }
-p { font-size:1.2em; margin:10px 0; }
+.card h1 {
+  color: #ff4d6d;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
 
-/* Buttons */
+.card p {
+  color: #555;
+  margin-bottom: 25px;
+}
+
+/* BUTTONS */
 .buttons {
   position: relative;
-  margin-top:25px;
-  height:140px;
+  height: 120px;
 }
 
 button {
-  padding: 15px 30px;
-  border-radius: 40px;
+  padding: 14px 26px;
+  font-size: 1.1rem;
   border: none;
+  border-radius: 50px;
   cursor: pointer;
-  font-size:1.2em;
-  position: absolute;
-  transition: transform 0.2s ease;
 }
 
-#yes { background:#ff4d6d; color:white; left:20%; }
-#no { background:#ddd; left:55%; }
-
-/* Floating hearts */
-.heart { position:absolute; font-size:28px; pointer-events:none; animation-name:float linear forwards; }
-@keyframes float { 0% { transform: translateY(0) scale(0.8); opacity:1; } 100% { transform: translateY(-120vh) scale(1.2); opacity:0; } }
-
-/* Sparkle particles */
-.particle { position:absolute; width:6px; height:6px; background:white; border-radius:50%; opacity:0.8; animation:particleMove linear infinite; }
-@keyframes particleMove { 0% { transform: translateY(0) translateX(0); opacity:1; } 100% { transform: translateY(-110vh) translateX(50px); opacity:0; } }
-
-/* Music button */
-#musicBtn {
-  position: fixed;
-  bottom: 20px;
-  left:50%;
-  transform: translateX(-50%);
+#yes {
   background: #ff4d6d;
-  color:white;
-  border:none;
-  padding: 20px 30px;
-  border-radius:50px;
-  font-size:1.5em;
-  cursor:pointer;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-  z-index:100;
+  color: white;
 }
 
-/* ====== Responsive for mobile ====== */
-@media (max-width: 600px) {
-  .album { width: 95%; aspect-ratio: 7/9; }
-  h1 { font-size: 2em; }
-  h2 { font-size: 1.5em; }
-  p { font-size: 1em; }
-  button { font-size: 1em; padding: 12px 20px; }
-  #musicBtn { font-size: 1.2em; padding: 15px 25px; }
+#no {
+  background: #eee;
+  color: #333;
+  position: absolute;
 }
 
-@media (max-width: 400px) {
-  .album { width: 98%; aspect-ratio: 7/9; }
-  h1 { font-size: 1.8em; }
-  h2 { font-size: 1.4em; }
-  p { font-size: 0.95em; }
-  button { font-size: 0.95em; padding: 10px 18px; }
-  #musicBtn { font-size: 1em; padding: 12px 20px; }
+/* MUSIC BUTTON */
+.music-btn {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  cursor: pointer;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
 }
 </style>
 </head>
-<body>
 
-<!-- Background Music -->
-<audio id="music" src="music.mp3" loop></audio>
+<body>
 
 <div class="container">
 
-  <!-- Album -->
+  <!-- PHOTO ALBUM -->
   <div class="album">
-    <div class="pages">
-      <img src="img1.jpeg" class="active">
-      <img src="img2.jpeg">
-      <img src="img3.jpeg">
-      <img src="img4.jpeg">
-      <img src="img5.jpeg">
-      <img src="img6.jpeg">
-    </div>
+    <img src="img1.jpeg">
+    <img src="img2.jpeg">
+    <img src="img3.jpeg">
+    <img src="img4.jpeg">
   </div>
 
-  <!-- Card -->
+  <!-- CARD -->
   <div class="card">
     <h1>Malebogo 💖</h1>
-    <p>Every moment with you is my favorite, I miss you so much mothowaka</p>
-    <p>I have one important question for you mama:</p>
-    <h2>Will you be my Valentine? 💘</h2>
+    <p>Will you be my Valentine?</p>
 
     <div class="buttons">
-      <form id="yesForm" action="https://formspree.io/f/mvzbprov" method="POST" onsubmit="yesClicked(); return false;">
-        <input type="hidden" name="choice" value="Yes">
+      <!-- YES FORM (Formspree) -->
+      <form action="https://formspree.io/f/mvzbprov" method="POST">
+        <input type="hidden" name="answer" value="YES 💕">
+        <input type="hidden" name="_subject" value="💖 Valentine Answer">
         <button type="submit" id="yes">Yes 💕</button>
       </form>
-      <button id="no" onmouseenter="moveNo()" ontouchstart="moveNo()">No 🙈</button>
+
+      <button id="no">No 😅</button>
     </div>
   </div>
+
+  <!-- MUSIC -->
+  <div class="music-btn" id="musicBtn">🔊</div>
+  <audio id="music" src="music.mp3" loop></audio>
 
 </div>
 
-<!-- Music button -->
-<button id="musicBtn" onclick="toggleMusic()">🎵 Play Music</button>
-
 <script>
-// ====== Fade Album Slideshow ======
-const pages = document.querySelectorAll('.pages img');
-let current = 0;
-setInterval(() => {
-  pages.forEach(img => img.classList.remove('active'));
-  current = (current + 1) % pages.length;
-  pages[current].classList.add('active');
-}, 2500);
+/* NO BUTTON MOVES */
+const noBtn = document.getElementById("no");
+noBtn.addEventListener("mouseover", () => {
+  const x = Math.random() * 200 - 100;
+  const y = Math.random() * 80 - 40;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
 
-// ====== Dodging NO Button ======
-const noBtn = document.getElementById('no');
-const containerBtns = document.querySelector('.buttons');
-function moveNo() {
-  const maxX = containerBtns.clientWidth - noBtn.offsetWidth;
-  const maxY = containerBtns.clientHeight - noBtn.offsetHeight;
-  noBtn.style.left = Math.random() * maxX + 'px';
-  noBtn.style.top = Math.random() * maxY + 'px';
-  noBtn.style.transform = `rotate(${Math.random()*60-30}deg) scale(${1+Math.random()*0.4})`;
-}
+/* MUSIC TOGGLE */
+const music = document.getElementById("music");
+const musicBtn = document.getElementById("musicBtn");
+let playing = false;
 
-// ====== YES Click Animation ======
-function yesClicked() {
-  document.body.innerHTML = `<div style="text-align:center;color:white;">
-    <h1 style="font-size:3em;">Malebogo said YES!!! 💖💖💖</h1>
-    <p style="font-size:1.5em;">I can’t wait to make more memories 😍</p>
-  </div>`;
-  hearts();
-  spawnParticles();
-}
-
-// ====== Floating Hearts ======
-function hearts() {
-  setInterval(()=>{
-    const heart = document.createElement('div');
-    heart.className='heart';
-    heart.innerText='❤️';
-    heart.style.left=Math.random()*window.innerWidth+'px';
-    heart.style.fontSize=(Math.random()*30+20)+'px';
-    heart.style.animationDuration=(Math.random()*3+2)+'s';
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),5000);
-  },150);
-}
-
-// ====== Sparkle Particles ======
-function spawnParticles() {
-  for(let i=0;i<50;i++){
-    const particle=document.createElement('div');
-    particle.className='particle';
-    particle.style.left=Math.random()*window.innerWidth+'px';
-    particle.style.top=window.innerHeight+'px';
-    particle.style.animationDuration=(Math.random()*5+3)+'s';
-    document.body.appendChild(particle);
-    setTimeout(()=>particle.remove(),7000);
-  }
-}
-setInterval(spawnParticles,5000);
-
-// ====== Music Button ======
-const music = document.getElementById('music');
-const musicBtn = document.getElementById('musicBtn');
-function toggleMusic() {
-  if(music.paused){
+musicBtn.addEventListener("click", () => {
+  if (!playing) {
     music.play();
-    musicBtn.innerText = "🎵 Pause Music";
+    musicBtn.textContent = "🔇";
   } else {
     music.pause();
-    musicBtn.innerText = "🎵 Play Music";
+    musicBtn.textContent = "🔊";
   }
-}
+  playing = !playing;
+});
 </script>
 
 </body>
-</html>
-
 </html>
